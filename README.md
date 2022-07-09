@@ -18,6 +18,6 @@ Toby Automation is a tool that helps automating tedious tasks by mouse-clicking 
 1. Start the image search service:\
    Inside `image-search/src` run `python image-search.py`
 
-2. Start the proper app:\
+2. Start the core app:\
    Inside `toby-core` run `npm run start` to compile Typescript and start the core app\
    or run `npx tsc` to only compile Typescript
