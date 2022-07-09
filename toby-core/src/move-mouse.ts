@@ -15,7 +15,7 @@ export function moveMouse(x: number, y: number, speed: number): Promise<void> {
   ];
   const distance = Math.sqrt(Math.pow(points[0].x - points[1].x, 2) + Math.pow(points[0].y - points[1].y, 2));
   const normalizedSpeed = speed <= 0 ? 0 : speed >= 1 ? 1 : speed;
-  const steps = new Bezier(points).getLUT(0.15 * distance * normalizedSpeed);
+  const steps = new Bezier(points).getLUT(Math.floor(0.15 * distance * normalizedSpeed) + 2);
 
   return new Promise<void>((resolve, reject) => {
     try {

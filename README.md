@@ -5,14 +5,19 @@ Toby Automation is a tool made with Node.js and Robot.js that helps automating t
 
 ### Required software
 
-Node.js
+* Node.js
+* Python
 
-### Environment setup
+### Installing dependencies
 
-`npm install`
+1. Inside `toby-core` run `npm install`
+2. Inside `image-search` run `pip install -r requirements.txt`
 
 ### Building and starting the application
 
-`npm run start` - compile Typescript and start the app
+1. Start the image search service:\
+   Inside `image-search/src` run `python image-search.py`
 
-`npx tsc` - only compile Typescript
+2. Start the proper app:\
+   Inside `toby-core` run `npm run start` to compile Typescript and start the core app\
+   or run `npx tsc` to only compile Typescript

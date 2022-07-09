@@ -1,2 +1,2 @@
-node_modules/*
-dist/*
+toby-core/node_modules/*
+toby-core/dist/*
