@@ -1,0 +1,30 @@
+{
+  "name": "toby-automation",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx tsc && node dist/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChrisAraneo/toby-automation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChrisAraneo/toby-automation/issues"
+  },
+  "homepage": "https://github.com/ChrisAraneo/toby-automation#readme",
+  "devDependencies": {
+    "@types/node": "^18.0.3",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@types/bezier-js": "^4.1.0",
+    "bezier-js": "^6.1.0",
+    "robotjs": "^0.6.0"
+  }
+}
