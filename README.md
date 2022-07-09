@@ -1,7 +1,7 @@
 
 ![toby-hero](https://user-images.githubusercontent.com/43781236/178103379-a3ada7ee-0956-4308-96fd-624dbaad4171.png)
 
-Toby Automation is a tool made with Node.js and Robot.js that helps automating tedious tasks by mouse-clicking on images or pressing down keyboard keys.
+Toby Automation is a tool that helps automating tedious tasks by mouse-clicking on images or pressing down keyboard keys. Toby is coded with TypeScript and Python and is using Node.js, Robot.js, PyAutoGUI and more.
 
 ### Required software
 
