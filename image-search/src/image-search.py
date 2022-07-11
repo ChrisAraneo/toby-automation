@@ -15,4 +15,8 @@ def index():
     else:
         return jsonify({'error': 'Content-Type not supported!'})
 
+@app.route("/hi", methods = ['POST'])
+def hi():
+    return jsonify({'data': 'Hello World!'})
+
 app.run()
