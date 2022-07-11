@@ -15,7 +15,7 @@ type ImageSearchResponse = {
  */
 export function findImage(filename: string): Promise<Point[]> {
   return new Promise<Point[]>(async (resolve, reject) => {
-    const path = "../../main/assets/" + filename;
+    const path = "../../toby-core/assets/" + filename;
     try {
       const response = await axios.post("http://localhost:5000/", { path });
       const data: ImageSearchResponse = response.data;
