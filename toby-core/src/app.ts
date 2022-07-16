@@ -1,25 +1,12 @@
-import axios from "axios";
+import { findImages } from "./find-images";
 import { moveMouse } from "./move-mouse";
-import { readImage, Image } from "./read-image";
-
-type Request = {
-  images: Image[]
-};
+import { readImage } from "./read-image";
 
 function app() {
   readImage("../toby-core/assets/example.png").then((image) => {
-    const body: Request = {
-      images: [
-        {
-          ...image,
-        },
-      ],
-    };
-
     moveMouse(100, 100, 0.025).then(() => {
-      axios
-        .post("http://localhost:8080/", { ...body })
-        .then((r) => console.log(r.data.data))
+      findImages([image])
+        .then((r) => console.log(r))
         .catch((e) => console.error(e));
     });
   });
