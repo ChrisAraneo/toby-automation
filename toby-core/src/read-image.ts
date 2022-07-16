@@ -12,35 +12,43 @@ export type Image = {
   }[];
 };
 
+/**
+ * Reads png image file and converts it
+ * @param {string} path path to png image location
+ */
 export function readImage(path: string): Promise<Image> {
   return new Promise<Image>((resolve, reject) => {
-    fs.createReadStream(path)
-      .pipe(
-        new pngjs.PNG({
-          filterType: 4,
-        })
-      )
-      .on("parsed", function () {
-        const result: Image = {
-          path,
-          width: this.width,
-          height: this.height,
-          pixels: [],
-        };
+    try {
+      fs.createReadStream(path)
+        .pipe(
+          new pngjs.PNG({
+            filterType: 4,
+          })
+        )
+        .on("parsed", function () {
+          const result: Image = {
+            path,
+            width: this.width,
+            height: this.height,
+            pixels: [],
+          };
 
-        for (let y = 0; y < this.height; y++) {
-          for (let x = 0; x < this.width; x++) {
-            const idx = (this.width * y + x) << 2;
+          for (let y = 0; y < this.height; y++) {
+            for (let x = 0; x < this.width; x++) {
+              const idx = (this.width * y + x) << 2;
 
-            const red = this.data[idx];
-            const green = this.data[idx + 1];
-            const blue = this.data[idx + 2];
+              const red = this.data[idx];
+              const green = this.data[idx + 1];
+              const blue = this.data[idx + 2];
 
-            result.pixels.push({ red, green, blue });
+              result.pixels.push({ red, green, blue });
+            }
           }
-        }
 
-        resolve(result);
-      });
+          resolve(result);
+        });
+    } catch (e) {
+      reject(e);
+    }
   });
 }
