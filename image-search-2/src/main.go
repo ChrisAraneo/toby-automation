@@ -48,22 +48,22 @@ func SearchImage(screen *image.RGBA, img Image) []Coordinates {
 	height2 := img.Height
 
 	var results = []Coordinates{}
-	var ok = true
 
 	wg := sync.WaitGroup{}
 	wg.Add(height * width)
 
 	for y := 0; y < height; y++ {
 		for x := 0; x < width; x++ {
-			i := (y*width + x) * 4
-			r1 := int(screen.Pix[i])
-			g1 := int(screen.Pix[i+1])
-			b1 := int(screen.Pix[i+2])
 
-			ok = true
+			var ok = true
 
 			for y2 := 0; y2 < height2; y2++ {
 				for x2 := 0; x2 < width2; x2++ {
+					i := ((y+y2)*width + x + x2) * 4
+					r1 := int(screen.Pix[i])
+					g1 := int(screen.Pix[i+1])
+					b1 := int(screen.Pix[i+2])
+
 					pixel := pixels[y2*width2+x2]
 					r := pixel.Red
 					g := pixel.Green
