@@ -1,6 +1,6 @@
 import bench from "nanobench";
 import robot from "robotjs";
-import { findImages } from "../src/find-image";
+import { findImages } from "../src/find-images";
 import { Image } from "../src/read-image";
 
 function main() {
