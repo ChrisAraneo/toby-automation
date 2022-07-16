@@ -5,8 +5,7 @@ Toby Automation is a tool that helps automating tedious tasks by mouse-clicking 
 ### Required software
 
 - Git
-- Node.js
-- node-gyp (https://github.com/nodejs/node-gyp)
+- Node.js (recommended v18.4.0), node-gyp (recommended v9.1.0)
 - Python
 - Go (https://go.dev/)
 
@@ -21,7 +20,7 @@ Toby Automation is a tool that helps automating tedious tasks by mouse-clicking 
    Inside `image-search/src` run `python image-search.py`
 
 2. Start the image search service v2:\
-   Inside `image-search-2/src` run `go build`
+   Inside `image-search-2/src` run `go build` and then run the compiled executable
 
 3. Start the core app:\
    Inside `toby-core` run `npm run start` to compile Typescript and start the core app\
