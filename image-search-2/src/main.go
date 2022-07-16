@@ -17,6 +17,7 @@ type Request struct {
 }
 
 type Image struct {
+	Path   string  `json:"path"`
 	Width  int     `json:"width"`
 	Height int     `json:"height"`
 	Pixels []Pixel `json:"pixels"`
@@ -33,8 +34,9 @@ type Response struct {
 }
 
 type Coordinates struct {
-	X int `json:"x"`
-	Y int `json:"y"`
+	Path string `json:string`
+	X    int    `json:"x"`
+	Y    int    `json:"y"`
 }
 
 func SearchImage(screen *image.RGBA, img Image) []Coordinates {
@@ -77,8 +79,8 @@ func SearchImage(screen *image.RGBA, img Image) []Coordinates {
 				}
 			}
 
-			if ok == true {
-				results = append(results, Coordinates{X: x, Y: y})
+			if ok {
+				results = append(results, Coordinates{Path: img.Path, X: x, Y: y})
 			}
 
 			wg.Done()
@@ -98,9 +100,18 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	decoder.Decode(&request)
 
-	results := SearchImage(screen, request.Images[0])
+	var data = []Coordinates{}
 
-	response := Response{Data: results}
+	for i := 0; i < len(request.Images); i++ {
+
+		result := SearchImage(screen, request.Images[i])
+
+		for j := 0; j < len(result); j++ {
+			data = append(data, result[j])
+		}
+	}
+
+	response := Response{Data: data}
 
 	json.NewEncoder(w).Encode(response)
 }

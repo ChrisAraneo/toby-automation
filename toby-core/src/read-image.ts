@@ -2,6 +2,7 @@ import fs from "fs";
 import pngjs from "pngjs";
 
 export type Image = {
+  path: string;
   width: number;
   height: number;
   pixels: {
@@ -21,6 +22,7 @@ export function readImage(path: string): Promise<Image> {
       )
       .on("parsed", function () {
         const result: Image = {
+          path,
           width: this.width,
           height: this.height,
           pixels: [],

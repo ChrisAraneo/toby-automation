@@ -1,17 +1,9 @@
 import axios from "axios";
 import { moveMouse } from "./move-mouse";
-import { readImage } from "./read-image";
+import { readImage, Image } from "./read-image";
 
 type Request = {
-  images: {
-    width: number;
-    height: number;
-    pixels: {
-      red: number;
-      green: number;
-      blue: number;
-    }[];
-  }[];
+  images: Image[]
 };
 
 function app() {
