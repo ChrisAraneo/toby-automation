@@ -1,13 +1,6 @@
 import axios from "axios";
 import { moveMouse } from "./move-mouse";
-
-function app() {
-  moveMouse(100, 100, 0.001).then(() => {
-    console.log("Moved mouse!");
-  });
-}
-
-app();
+import { readImage } from "./read-image";
 
 type Request = {
   images: {
@@ -21,23 +14,23 @@ type Request = {
   }[];
 };
 
-const body: Request = {
-  images: [
-    {
-      width: 1,
-      height: 1,
-      pixels: [
+function app() {
+  readImage("../toby-core/assets/example.png").then((image) => {
+    const body: Request = {
+      images: [
         {
-          red: 230,
-          green: 74,
-          blue: 25,
+          ...image,
         },
       ],
-    },
-  ],
-};
+    };
 
-axios
-  .post("http://localhost:8080/", { ...body })
-  .then((r) => console.log(r.data.data))
-  .catch((e) => console.error(e));
+    moveMouse(100, 100, 0.025).then(() => {
+      axios
+        .post("http://localhost:8080/", { ...body })
+        .then((r) => console.log(r.data.data))
+        .catch((e) => console.error(e));
+    });
+  });
+}
+
+app();
