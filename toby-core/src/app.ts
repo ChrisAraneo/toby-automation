@@ -1,10 +1,15 @@
-import { findImage } from "./find-image";
+import { findImages } from "./find-images";
 import { moveMouse } from "./move-mouse";
+import { readImage } from "./read-image";
 
-moveMouse(100, 100, 0.001).then(() => {
-  console.log("Moved mouse!");
+function app() {
+  readImage("../toby-core/assets/example.png").then((image) => {
+    moveMouse(100, 100, 0.025).then(() => {
+      findImages([image])
+        .then((r) => console.log(r))
+        .catch((e) => console.error(e));
+    });
+  });
+}
 
-  findImage("start.png")
-    .then((result) => console.log(result))
-    .catch((e) => console.log(e));
-});
+app();

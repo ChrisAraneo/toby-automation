@@ -1,2 +1,3 @@
-toby-core/node_modules/*
-toby-core/dist/*
+toby-core/node_modules
+toby-core/dist
+image-search/src/main.exe

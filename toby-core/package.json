@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx tsc && node dist/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npx tsc && node dist/src/app.js",
+    "test": "npx tsc && node dist/test/_benchmark.js"
   },
   "repository": {
     "type": "git",
@@ -24,8 +24,12 @@
   },
   "dependencies": {
     "@types/bezier-js": "^4.1.0",
+    "@types/pngjs": "^6.0.1",
     "axios": "^0.27.2",
+    "bench-rest": "^1.2.4",
     "bezier-js": "^6.1.0",
+    "nanobench": "^2.1.1",
+    "pngjs": "^6.0.0",
     "robotjs": "^0.6.0",
     "workerpool": "^6.2.1"
   }
