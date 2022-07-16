@@ -1,28 +1,26 @@
 import axios from "axios";
-import { Point } from "bezier-js";
+import { Image } from "./read-image";
 
 type ImageSearchResponse = {
   data: {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
+    data: ImageLocationOnScreen[];
   };
+};
+
+type ImageLocationOnScreen = {
+  path: string;
+  x: number;
+  y: number;
 };
 
 /**
  * Sends request to ImageSearch service and returns the coordinates
  */
-export function findImage(filename: string): Promise<Point[]> {
-  return new Promise<Point[]>(async (resolve, reject) => {
-    const path = "../../toby-core/assets/" + filename;
-    try {
-      const response = await axios.post("http://localhost:5000/", { path });
-      const data: ImageSearchResponse = response.data;
-
-      resolve([{ x: data.data.x, y: data.data.y }]);
-    } catch (e: any) {
-      reject(e);
-    }
+export function findImages(images: Image[]): Promise<ImageLocationOnScreen[]> {
+  return new Promise<ImageLocationOnScreen[]>((resolve, reject) => {
+    axios
+      .post("http://localhost:8080/", { images })
+      .then((response: ImageSearchResponse) => resolve(response.data.data))
+      .catch((e) => reject(e));
   });
 }
