@@ -1,3 +1,4 @@
 toby-core/node_modules
 toby-core/dist
-image-search/src/main.exe
+image-search/**/main.exe
+move-mouse/**/move-mouse.exe
