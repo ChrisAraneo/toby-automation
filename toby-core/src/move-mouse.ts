@@ -1,5 +1,6 @@
 import { Bezier } from "bezier-js";
 import robot from "robotjs";
+import childProcess from "child_process";
 
 /**
  * Move mouse in straight line from current location to x, y
@@ -13,9 +14,14 @@ export function moveMouse(x: number, y: number, speed: number): Promise<void> {
     { x: start.x, y: start.y },
     { x: x, y: y },
   ];
-  const distance = Math.sqrt(Math.pow(points[0].x - points[1].x, 2) + Math.pow(points[0].y - points[1].y, 2));
+  const distance = Math.sqrt(
+    Math.pow(points[0].x - points[1].x, 2) +
+      Math.pow(points[0].y - points[1].y, 2)
+  );
   const normalizedSpeed = speed <= 0 ? 0 : speed >= 1 ? 1 : speed;
-  const steps = new Bezier(points).getLUT(Math.floor(0.15 * distance * normalizedSpeed) + 2);
+  const steps = new Bezier(points).getLUT(
+    Math.floor(0.15 * distance * normalizedSpeed) + 2
+  );
 
   return new Promise<void>((resolve, reject) => {
     try {
@@ -26,5 +32,31 @@ export function moveMouse(x: number, y: number, speed: number): Promise<void> {
     } catch (e: any) {
       reject(e);
     }
+  });
+}
+
+/**
+ * Move mouse in from current location to x, y (Experimental)
+ * @param {number} x x coordinate
+ * @param {number} y y coordinate
+ * @param {number} speed speed of movement, number between 0 and 1
+ */
+export function moveMouseExperimental(
+  x: number,
+  y: number,
+  speed: number
+): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    childProcess.execFile(
+      `..\\toby-automation\\move-mouse\\dist\\move-mouse.exe`,
+      [`${x}`, `${y}`],
+      (e, data) => {
+        if (e) {
+          reject(e);
+        } else {
+          resolve();
+        }
+      }
+    );
   });
 }
