@@ -18,7 +18,7 @@ Inside `toby-core` run `npm install`
 1. Start the image search service:\
    Inside `image-search/src` run `go build` and then run the compiled executable
 
-2. (Optional) If using Windows and want to use experimental mouse moving script, then you should compile the `move-mouse.au3` in `move-mouse` to executable
+2. (Optional) If using Windows and want to use experimental mouse moving script, then you should compile the `move-mouse.au3` in `move-mouse` to executable. Move the compiled executable into `move-mouse/dist`
 
 2. Start the core app:\
    Inside `toby-core` run `npm run start` to compile Typescript and start the core app\
