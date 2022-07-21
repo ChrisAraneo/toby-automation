@@ -1,16 +1,6 @@
 import fs from "fs";
 import pngjs from "pngjs";
-
-export type Image = {
-  path: string;
-  width: number;
-  height: number;
-  pixels: {
-    red: number;
-    green: number;
-    blue: number;
-  }[];
-};
+import { Image } from "./types";
 
 /**
  * Reads png image file and converts it

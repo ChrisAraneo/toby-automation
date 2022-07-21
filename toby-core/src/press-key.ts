@@ -1,7 +1,8 @@
 import robot from "robotjs";
+import { Key } from "./types";
 
 /**
- * Press a single key
+ * Press a single key and then release it
  * @param {Key} key name of a key
  */
 export function pressKey(key: Key): Promise<void> {
@@ -14,36 +15,3 @@ export function pressKey(key: Key): Promise<void> {
     }
   });
 }
-
-type Key =
-  | "backspace"
-  | "delete"
-  | "enter"
-  | "tab"
-  | "escape"
-  | "up"
-  | "down"
-  | "right"
-  | "left"
-  | "home"
-  | "end"
-  | "pageup"
-  | "pagedown"
-  | "f1"
-  | "f2"
-  | "f3"
-  | "f4"
-  | "f5"
-  | "f6"
-  | "f7"
-  | "f8"
-  | "f9"
-  | "f10"
-  | "f11"
-  | "f12"
-  | "command"
-  | "alt"
-  | "control"
-  | "shift"
-  | "right_shift"
-  | "space";
