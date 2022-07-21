@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Image } from "./read-image";
+import { Image } from "./types";
 
 type ImageSearchResponse = {
   data: {
