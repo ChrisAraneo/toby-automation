@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net"
 	"sync"
@@ -43,7 +44,7 @@ func SearchImage(img Image) []Coordinates {
 	screen, err := screenshot.CaptureScreen()
 	checkError(err)
 
-	precision := int(15)
+	precision := int(7)
 
 	bounds := screen.Bounds()
 	width, height := bounds.Max.X, bounds.Max.Y
@@ -55,10 +56,10 @@ func SearchImage(img Image) []Coordinates {
 	var results = []Coordinates{}
 
 	wg := sync.WaitGroup{}
-	wg.Add(height * width)
+	wg.Add((height - height2 + 1) * (width - width2 + 1))
 
-	for y := 0; y < height; y++ {
-		for x := 0; x < width; x++ {
+	for y := 0; y <= height-height2; y++ {
+		for x := 0; x <= width-width2; x++ {
 
 			var ok = true
 
@@ -108,7 +109,7 @@ func handleConnection(conn net.Conn) {
 	}
 
 	msgData := make([]byte, msgLen)
-	_, err = reader.Read(msgData)
+	_, err = io.ReadFull(reader, msgData)
 	if err != nil {
 		log.Printf("Error reading message data: %v", err)
 		return
