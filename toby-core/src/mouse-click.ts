@@ -1,4 +1,4 @@
-import robot from "robotjs";
+import { MouseButton, MouseDown, MouseUp } from "@ahmic/autoit-js";
 import { sleep } from "./sleep";
 
 const DELAY = 45;
@@ -38,15 +38,12 @@ export function mouseRightClickLong(): Promise<void> {
   return _mouseClick("right", DELAY);
 }
 
-function _mouseClick(
-  button: "left" | "right",
-  delay: number = 0
-): Promise<void> {
+function _mouseClick(button: "left" | "right", delay: number = 0): Promise<void> {
   return new Promise<void>(async (resolve, reject) => {
     try {
-      robot.mouseToggle("down", button);
+      MouseDown(button === "left" ? MouseButton.Left : MouseButton.Right);
       await sleep(Math.floor(Math.random() * 2) + delay);
-      robot.mouseToggle("up", button);
+      MouseUp(button === "left" ? MouseButton.Left : MouseButton.Right);
       await sleep(Math.floor(Math.random() * 2) + delay);
       resolve();
     } catch (e) {

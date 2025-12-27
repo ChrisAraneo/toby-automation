@@ -1,14 +1,14 @@
-import robot from "robotjs";
-import { Key } from "./types";
+import { Send } from "@ahmic/autoit-js";
 
 /**
  * Press a single key and then release it
- * @param {Key} key name of a key
+ * @param {string} key name of a key
  */
-export function pressKey(key: Key): Promise<void> {
-  return new Promise<void>((resolve, reject) => {
+export async function pressKey(key: string): Promise<void> {
+  return new Promise<void>(async (resolve, reject) => {
     try {
-      robot.keyTap(key);
+      await Send(`{${key} down}`);
+      await Send(`{${key} up}`);
       resolve();
     } catch (e: any) {
       reject(e);

@@ -1,11 +1,11 @@
 {
   "name": "toby-automation",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx tsc && node dist/src/app.js",
-    "test": "npx tsc && node dist/test/_benchmark.js"
+    "start": "tsx src/index.ts",
+    "test": "tsx test/_benchmark.ts"
   },
   "repository": {
     "type": "git",
@@ -20,17 +20,15 @@
   "homepage": "https://github.com/ChrisAraneo/toby-automation#readme",
   "devDependencies": {
     "@types/node": "^18.0.3",
+    "tsx": "^4.21.0",
     "typescript": "^4.7.4"
   },
   "dependencies": {
+    "@ahmic/autoit-js": "^2.1.0",
     "@types/bezier-js": "^4.1.0",
     "@types/pngjs": "^6.0.1",
     "axios": "^0.27.2",
-    "bench-rest": "^1.2.4",
-    "bezier-js": "^6.1.0",
     "nanobench": "^2.1.1",
-    "pngjs": "^6.0.0",
-    "robotjs": "^0.6.0",
-    "workerpool": "^6.2.1"
+    "pngjs": "^6.0.0"
   }
 }

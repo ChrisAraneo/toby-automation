@@ -1,14 +1,13 @@
-import robot from "robotjs";
-import { Key } from "./types";
+import { Send } from "@ahmic/autoit-js";
 
 /**
  * Presses down a single key
- * @param {Key} key name of a key
+ * @param {string} key name of a key
  */
-export function keyDown(key: Key): Promise<void> {
-  return new Promise<void>((resolve, reject) => {
+export function keyDown(key: string): Promise<void> {
+  return new Promise<void>(async (resolve, reject) => {
     try {
-      robot.keyToggle(key, 'down')
+      await Send(`{${key} down}`);
       resolve();
     } catch (e: any) {
       reject(e);

@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"image"
 	"log"
 	"net/http"
 	"sync"
@@ -39,7 +38,10 @@ type Coordinates struct {
 	Y    int    `json:"y"`
 }
 
-func SearchImage(screen *image.RGBA, img Image) []Coordinates {
+func SearchImage(img Image) []Coordinates {
+	screen, err := screenshot.CaptureScreen()
+	checkError(err)
+
 	precision := int(15)
 
 	bounds := screen.Bounds()
@@ -93,9 +95,6 @@ func SearchImage(screen *image.RGBA, img Image) []Coordinates {
 }
 
 func handleRequest(w http.ResponseWriter, r *http.Request) {
-	screen, err := screenshot.CaptureScreen()
-	checkError(err)
-
 	var request Request
 	decoder := json.NewDecoder(r.Body)
 	decoder.Decode(&request)
@@ -104,7 +103,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 	for i := 0; i < len(request.Images); i++ {
 
-		result := SearchImage(screen, request.Images[i])
+		result := SearchImage(request.Images[i])
 
 		for j := 0; j < len(result); j++ {
 			data = append(data, result[j])

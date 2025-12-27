@@ -1,4 +1,5 @@
 import fs from "fs";
+import { normalize } from "node:path";
 import pngjs from "pngjs";
 import { Image } from "./types";
 
@@ -9,7 +10,7 @@ import { Image } from "./types";
 export function readImage(path: string): Promise<Image> {
   return new Promise<Image>((resolve, reject) => {
     try {
-      fs.createReadStream(path)
+      fs.createReadStream("file://" + normalize(path))
         .pipe(
           new pngjs.PNG({
             filterType: 4,

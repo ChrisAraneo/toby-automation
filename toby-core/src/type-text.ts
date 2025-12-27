@@ -1,13 +1,13 @@
-import robot from "robotjs";
+import { Send } from "@ahmic/autoit-js";
 
 /**
  * Types specified text
  * @param {string} text string to type
  */
-export function typeText(text: string): Promise<void> {
-  return new Promise<void>((resolve, reject) => {
+export async function typeText(text: string): Promise<void> {
+  return new Promise<void>(async (resolve, reject) => {
     try {
-      robot.typeString(text);
+      await Send(text);
       resolve();
     } catch (e: any) {
       reject(e);

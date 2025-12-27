@@ -1,13 +1,12 @@
 ![toby-hero](https://user-images.githubusercontent.com/43781236/178103379-a3ada7ee-0956-4308-96fd-624dbaad4171.png)
 
-Toby Automation is a tool that helps automating tedious tasks by mouse-clicking on images or pressing down keyboard keys. Toby is coded mainly with TypeScript and is using Node.js, Robot.js, AutoIt and more.
+Toby Automation is a tool that helps automating manual tasks by mouse-clicking on images or pressing down keyboard keys. Toby is coded mainly with TypeScript and is using Node.js, AutoIt and more.
 
 ### Required software
 
-- Visual Studio - you need to install the latest version of Visual Studio to use Robot.js. Make sure to install the necessary C++ build tools ("Desktop development with C++") and Windows SDK components
-- Node.js (recommended v18.4.0), node-gyp (recommended v9.1.0)
+- AutoIt (https://www.autoitscript.com/) - available for Windows, can be used on Linux with Wine but it was not tested
+- Node.js (https://nodejs.org/)
 - Go (https://go.dev/)
-- AutoIt (https://www.autoitscript.com/) - only available for Windows & recommended on Windows
 
 ### Installing dependencies
 
@@ -18,8 +17,5 @@ Inside `toby-core` run `npm install`
 1. Start the image search service:\
    Inside `image-search/src` run `go build` and then run the compiled executable
 
-2. (Optional) If using Windows and want to use experimental mouse moving script (powered by AutoIt), then you should compile the `move-mouse.au3` in `move-mouse` to executable. Move the compiled executable into `move-mouse/dist`
-
 2. Start the core app:\
-   Inside `toby-core` run `npm run start` to compile Typescript and start the core app\
-   or run `npx tsc` to only compile Typescript
+   Inside `toby-core` run `npm i` then `npm run start` to compile Typescript and start the example app\

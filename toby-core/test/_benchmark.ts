@@ -1,14 +1,12 @@
+import {} from "@ahmic/autoit-js";
 import bench from "nanobench";
-import robot from "robotjs";
 import { findImages } from "../src/find-images";
-import { Image } from "../src/read-image";
 
 function main() {
-  captureScreenBenchmark();
   fetchImageSearchBenchmark();
 }
 
-const images: Image[] = [
+const images = [
   {
     path: "(none)",
     width: 1,
@@ -29,14 +27,6 @@ function fetchImageSearchBenchmark() {
     findImages(images)
       .then(() => b.end())
       .catch(() => b.end());
-  });
-}
-
-function captureScreenBenchmark() {
-  bench("Capture screen", function (b: any) {
-    b.start();
-    robot.screen.capture();
-    b.end();
   });
 }
 
