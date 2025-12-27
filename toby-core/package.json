@@ -27,7 +27,6 @@
     "@ahmic/autoit-js": "^2.1.0",
     "@types/bezier-js": "^4.1.0",
     "@types/pngjs": "^6.0.1",
-    "axios": "^0.27.2",
     "nanobench": "^2.1.1",
     "pngjs": "^6.0.0"
   }
