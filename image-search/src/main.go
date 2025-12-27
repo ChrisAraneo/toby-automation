@@ -1,13 +1,14 @@
 package main
 
 import (
+	"bufio"
+	"encoding/binary"
 	"encoding/json"
 	"fmt"
 	"log"
-	"net/http"
+	"net"
 	"sync"
 
-	"github.com/gorilla/mux"
 	"github.com/vova616/screenshot"
 )
 
@@ -94,34 +95,79 @@ func SearchImage(img Image) []Coordinates {
 	return results
 }
 
-func handleRequest(w http.ResponseWriter, r *http.Request) {
+func handleConnection(conn net.Conn) {
+	defer conn.Close()
+
+	reader := bufio.NewReader(conn)
+
+	var msgLen uint32
+	err := binary.Read(reader, binary.BigEndian, &msgLen)
+	if err != nil {
+		log.Printf("Error reading message length: %v", err)
+		return
+	}
+
+	msgData := make([]byte, msgLen)
+	_, err = reader.Read(msgData)
+	if err != nil {
+		log.Printf("Error reading message data: %v", err)
+		return
+	}
+
 	var request Request
-	decoder := json.NewDecoder(r.Body)
-	decoder.Decode(&request)
+	err = json.Unmarshal(msgData, &request)
+	if err != nil {
+		log.Printf("Error unmarshaling request: %v", err)
+		return
+	}
 
 	var data = []Coordinates{}
-
 	for i := 0; i < len(request.Images); i++ {
-
 		result := SearchImage(request.Images[i])
-
 		for j := 0; j < len(result); j++ {
 			data = append(data, result[j])
 		}
 	}
 
 	response := Response{Data: data}
+	responseData, err := json.Marshal(response)
+	if err != nil {
+		log.Printf("Error marshaling response: %v", err)
+		return
+	}
 
-	json.NewEncoder(w).Encode(response)
+	responseLen := uint32(len(responseData))
+	err = binary.Write(conn, binary.BigEndian, responseLen)
+	if err != nil {
+		log.Printf("Error writing response length: %v", err)
+		return
+	}
+
+	_, err = conn.Write(responseData)
+	if err != nil {
+		log.Printf("Error writing response data: %v", err)
+		return
+	}
 }
 
 func main() {
-	router := mux.NewRouter()
+	listener, err := net.Listen("tcp", ":8080")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer listener.Close()
 
-	router.HandleFunc("/", handleRequest).Methods("POST")
+	fmt.Println("[SearchImage] TCP Server listening on :8080")
 
-	fmt.Println("Server at 8080")
-	log.Fatal(http.ListenAndServe(":8080", router))
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			log.Printf("Error accepting connection: %v", err)
+			continue
+		}
+
+		go handleConnection(conn)
+	}
 }
 
 func checkError(e error) {
