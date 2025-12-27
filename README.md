@@ -4,7 +4,7 @@ Toby Automation is a tool that helps automating tedious tasks by mouse-clicking 
 
 ### Required software
 
-- Git
+- Visual Studio - you need to install the latest version of Visual Studio to use Robot.js. Make sure to install the necessary C++ build tools ("Desktop development with C++") and Windows SDK components
 - Node.js (recommended v18.4.0), node-gyp (recommended v9.1.0)
 - Go (https://go.dev/)
 - AutoIt (https://www.autoitscript.com/) - only available for Windows & recommended on Windows
