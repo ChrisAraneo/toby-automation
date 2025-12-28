@@ -10,7 +10,7 @@ import { Image } from "./types";
 export function readImage(path: string): Promise<Image> {
   return new Promise<Image>((resolve, reject) => {
     try {
-      fs.createReadStream("file://" + normalize(path))
+      fs.createReadStream(normalize(path))
         .pipe(
           new pngjs.PNG({
             filterType: 4,
